@@ -4,7 +4,6 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
@@ -16,7 +15,6 @@
 /* Top Bar */
 .top-bar {
   background: #ffffff;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   max-height: 40px;
   overflow: hidden;
   transform: translateY(0);
@@ -76,7 +74,6 @@
 /* Main Header */
 .main-header {
   background: #ffffff;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 20px 0;
   position: relative;
 }
@@ -93,7 +90,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Logo Section - Centered */
@@ -102,7 +98,6 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
   transform: translateY(0);
 }
@@ -573,8 +568,6 @@
   padding: 0 20px;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.1s;
   pointer-events: none;
 }
 
@@ -588,13 +581,11 @@
 .logo-section-left {
   display: flex;
   align-items: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yukkuri-logo-small {
   text-decoration: none;
   color: inherit;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yukkuri-text-en-small {
@@ -618,8 +609,6 @@
   display: flex;
   align-items: center;
   gap: 30px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
 }
 
 .nav-link {

@@ -9,28 +9,19 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const threshold = 80;
+      const threshold = 50; // 增加滚动阈值以防止闪动
       
-      // 使用requestAnimationFrame优化性能
-      requestAnimationFrame(() => {
-        setIsScrolled(scrollTop > threshold);
-      });
-    };
-
-    // 节流处理
-    let ticking = false;
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
+      // 添加缓冲区，避免在临界点附近频繁切换
+      if (scrollTop > threshold + 10) {
+        setIsScrolled(true);
+      } else if (scrollTop < threshold - 10) {
+        setIsScrolled(false);
       }
+      // 在threshold±10px范围内不改变状态，避免闪动
     };
 
-    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', throttledHandleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
