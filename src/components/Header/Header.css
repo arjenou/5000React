@@ -1,0 +1,654 @@
+.header {
+  background: #ffffff;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled {
+  /* Scrolled state styles applied elsewhere */
+}
+
+/* Top Bar */
+.top-bar {
+  background: #ffffff;
+  transition: all 0.3s ease;
+  max-height: 40px;
+  overflow: hidden;
+}
+
+.top-bar.hidden {
+  max-height: 0;
+  opacity: 0;
+}
+
+.top-bar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 20px;
+}
+
+.top-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.country-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flag {
+  font-size: 16px;
+}
+
+.country-text {
+  color: #6c757d;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+}
+
+.contact-btn {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.contact-btn:hover {
+  color: #495057;
+}
+
+/* Main Header */
+.main-header {
+  background: #ffffff;
+  transition: all 0.3s ease;
+  padding: 20px 0;
+}
+
+.header.scrolled .main-header {
+  padding: 10px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Logo Section - Centered */
+.logo-section-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.yukkuri-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yukkuri-text-en {
+  font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: 4px;
+  line-height: 0.9;
+  margin-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+.yukkuri-text-jp {
+  font-family: 'Hiragino Sans', 'Noto Sans CJK JP', 'Yu Gothic', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 3px;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled .yukkuri-text-en {
+  font-size: 32px;
+  letter-spacing: 3px;
+}
+
+.header.scrolled .yukkuri-text-jp {
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.menu-toggle:hover {
+  background-color: #ffffff;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #e9ecef;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  transform: translateY(-100%);
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.mobile-search {
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  position: relative;
+}
+
+.mobile-search-input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  background: #ffffff;
+}
+
+.mobile-search .search-icon {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-link {
+  padding: 16px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  background-color: #ffffff;
+  color: #007bff;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-header {
+    padding: 15px 0;
+  }
+  
+  .header.scrolled .main-header {
+    padding: 8px 0;
+  }
+  
+  .header-container {
+    padding: 0 16px;
+  }
+  
+  .yukkuri-text-en {
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+  
+  .yukkuri-text-jp {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+  }
+  
+  .header.scrolled .yukkuri-text-en {
+    font-size: 24px;
+    letter-spacing: 1.5px;
+  }
+  
+  .header.scrolled .yukkuri-text-jp {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  
+  .menu-toggle {
+    right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    padding: 12px 0;
+  }
+  
+  .header.scrolled .main-header {
+    padding: 6px 0;
+  }
+  
+  .yukkuri-text-en {
+    font-size: 24px;
+    letter-spacing: 1.5px;
+  }
+  
+  .yukkuri-text-jp {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  
+  .header.scrolled .yukkuri-text-en {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+  
+  .header.scrolled .yukkuri-text-jp {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+}
+
+.top-nav-link:hover {
+  color: #495057;
+}
+
+.country-flag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6c757d;
+}
+
+.flag {
+  font-size: 16px;
+}
+
+.register-btn {
+  background: #007bff;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.register-btn:hover {
+  background: #0056b3;
+}
+
+/* Main Header */
+.main-header {
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled .main-header {
+  padding: 5px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled .header-container {
+  padding: 8px 20px;
+}
+
+/* Header Search */
+.header-search {
+  position: relative;
+  flex: 0 0 300px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 40px 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+.search-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 4px;
+}
+
+.search-btn:hover {
+  color: #007bff;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.logo-icon svg {
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled .logo-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Header Actions & Navigation */
+.header-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 400;
+  font-size: 15px;
+  transition: color 0.3s ease;
+  position: relative;
+  padding: 8px 0;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link.active {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.nav-link.register {
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.nav-link.register:hover {
+  background: #0056b3;
+  color: white;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #495057;
+}
+
+.menu-overlay {
+  display: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .main-nav {
+    gap: 20px;
+  }
+  
+  .header-search {
+    flex: 0 0 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-nav-container {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  .top-nav-left,
+  .top-nav-right {
+    gap: 12px;
+  }
+
+  .header-container {
+    padding: 12px 16px;
+    position: relative;
+  }
+
+  .header.scrolled .header-container {
+    padding: 8px 16px;
+  }
+
+  .header-search {
+    flex: 1;
+    margin-right: 16px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
+  .logo-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .header.scrolled .logo-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Hide some top nav items on mobile */
+  .top-nav-left > *:nth-child(n+3),
+  .top-nav-right > *:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-search {
+    flex: 1;
+    margin-right: 12px;
+  }
+
+  .search-input {
+    font-size: 13px;
+    padding: 6px 32px 6px 10px;
+  }
+
+  .logo-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header.scrolled .logo-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .top-nav-left > *:nth-child(n+2) {
+    display: none;
+  }
+
+  .register-btn {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Scrolled Navigation Layout */
+.scrolled-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo Section - Left aligned when scrolled */
+.logo-section-left {
+  display: flex;
+  align-items: center;
+}
+
+.yukkuri-logo-small {
+  text-decoration: none;
+  color: inherit;
+}
+
+.yukkuri-text-en-small {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #333;
+  line-height: 1;
+}
+
+.yukkuri-text-jp-small {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: #666;
+  margin-top: -2px;
+}
+
+/* Navigation Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.contact-btn-nav {
+  background: #1e5ba8;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn-nav:hover {
+  background: #164a8a;
+  color: white !important;
+}
+
+/* Mobile responsiveness for scrolled nav */
+@media (max-width: 768px) {
+  .scrolled-nav {
+    justify-content: center;
+  }
+  
+  .nav-menu {
+    display: none;
+  }
+  
+  .logo-section-left {
+    margin: 0 auto;
+  }
+}
