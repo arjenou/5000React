@@ -116,6 +116,18 @@
   text-decoration: none;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: inherit;
+}
+
+.yukkuri-logo:hover {
+  transform: scale(1.02);
+  opacity: 0.8;
+}
+
+.yukkuri-logo:visited,
+.yukkuri-logo:link {
+  color: inherit;
+  text-decoration: none;
 }
 
 .yukkuri-text-en {
@@ -586,6 +598,23 @@
 .yukkuri-logo-small {
   text-decoration: none;
   color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yukkuri-logo-small:hover {
+  transform: scale(1.02);
+  opacity: 0.8;
+}
+
+.yukkuri-logo-small:visited,
+.yukkuri-logo-small:link {
+  color: inherit;
+  text-decoration: none;
 }
 
 .yukkuri-text-en-small {

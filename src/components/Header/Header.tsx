@@ -26,6 +26,11 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const handleLogoClick = () => {
+    // 刷新页面并导航到首页
+    window.location.href = '/';
+  };
+
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       {/* Top Bar - only visible when not scrolled */}
@@ -45,20 +50,20 @@ const Header: React.FC = () => {
         <div className="header-container">
           {/* Default Layout - Centered Logo (始终渲染，通过CSS控制显示) */}
           <div className="logo-section-centered">
-            <div className="yukkuri-logo">
+            <a href="/" className="yukkuri-logo" onClick={handleLogoClick}>
               <div className="yukkuri-text-en">YUKKURI</div>
               <div className="yukkuri-text-jp">ユックリ</div>
-            </div>
+            </a>
           </div>
 
           {/* Scrolled Layout - Navigation Bar (始终渲染，通过CSS控制显示) */}
           <div className="scrolled-nav">
             {/* Logo on left */}
             <div className="logo-section-left">
-              <div className="yukkuri-logo-small">
+              <a href="/" className="yukkuri-logo-small" onClick={handleLogoClick}>
                 <div className="yukkuri-text-en-small">YUKKURI</div>
                 <div className="yukkuri-text-jp-small">ユックリ</div>
-              </div>
+              </a>
             </div>
 
             {/* Navigation Menu */}
