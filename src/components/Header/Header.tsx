@@ -9,11 +9,28 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 100);
+      const threshold = 80;
+      
+      // 使用requestAnimationFrame优化性能
+      requestAnimationFrame(() => {
+        setIsScrolled(scrollTop > threshold);
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // 节流处理
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -35,36 +52,32 @@ const Header: React.FC = () => {
       {/* Main Header */}
       <div className="main-header">
         <div className="header-container">
-          {/* Scrolled Layout - Navigation Bar */}
-          {isScrolled && (
-            <div className="scrolled-nav">
-              {/* Logo on left */}
-              <div className="logo-section-left">
-                <div className="yukkuri-logo-small">
-                  <div className="yukkuri-text-en-small">YUKKURI</div>
-                  <div className="yukkuri-text-jp-small">ユックリ</div>
-                </div>
-              </div>
-
-              {/* Navigation Menu */}
-              <nav className="nav-menu">
-                <a href="#" className="nav-link">空间设计</a>
-                <a href="#" className="nav-link">专项游学</a>
-                <a href="#" className="nav-link">展览策划</a>
-                <a href="#" className="nav-link contact-btn-nav">联系我们</a>
-              </nav>
+          {/* Default Layout - Centered Logo (始终渲染，通过CSS控制显示) */}
+          <div className="logo-section-centered">
+            <div className="yukkuri-logo">
+              <div className="yukkuri-text-en">YUKKURI</div>
+              <div className="yukkuri-text-jp">ユックリ</div>
             </div>
-          )}
+          </div>
 
-          {/* Default Layout - Centered Logo */}
-          {!isScrolled && (
-            <div className="logo-section-centered">
-              <div className="yukkuri-logo">
-                <div className="yukkuri-text-en">YUKKURI</div>
-                <div className="yukkuri-text-jp">ユックリ</div>
+          {/* Scrolled Layout - Navigation Bar (始终渲染，通过CSS控制显示) */}
+          <div className="scrolled-nav">
+            {/* Logo on left */}
+            <div className="logo-section-left">
+              <div className="yukkuri-logo-small">
+                <div className="yukkuri-text-en-small">YUKKURI</div>
+                <div className="yukkuri-text-jp-small">ユックリ</div>
               </div>
             </div>
-          )}
+
+            {/* Navigation Menu */}
+            <nav className="nav-menu">
+              <a href="#" className="nav-link">空间设计</a>
+              <a href="#" className="nav-link">专项游学</a>
+              <a href="#" className="nav-link">展览策划</a>
+              <a href="#" className="nav-link contact-btn-nav">联系我们</a>
+            </nav>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button 

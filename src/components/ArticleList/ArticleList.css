@@ -1,9 +1,7 @@
 .article-list {
   background-color: #ffffff;
   min-height: 100vh;
-  padding-top: 130px; /* 为fixed header留出空间 */
-  position: relative;
-  z-index: 1;
+  padding-top: 30px; /* 增加一点上边距，考虑到顶部栏 */
 }
 
 .container {

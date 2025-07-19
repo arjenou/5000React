@@ -4,24 +4,28 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .header.scrolled {
   /* Scrolled state styles applied elsewhere */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Top Bar */
 .top-bar {
   background: #ffffff;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   max-height: 40px;
   overflow: hidden;
+  transform: translateY(0);
 }
 
 .top-bar.hidden {
   max-height: 0;
   opacity: 0;
+  transform: translateY(-100%);
 }
 
 .top-bar-container {
@@ -72,8 +76,9 @@
 /* Main Header */
 .main-header {
   background: #ffffff;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 20px 0;
+  position: relative;
 }
 
 .header.scrolled .main-header {
@@ -88,7 +93,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Logo Section - Centered */
@@ -97,6 +102,15 @@
   align-items: center;
   justify-content: center;
   flex: 1;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header.scrolled .logo-section-centered {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
 }
 
 .yukkuri-logo {
@@ -106,7 +120,7 @@
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yukkuri-text-en {
@@ -117,7 +131,7 @@
   letter-spacing: 4px;
   line-height: 0.9;
   margin-bottom: 4px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yukkuri-text-jp {
@@ -127,7 +141,7 @@
   color: #000;
   letter-spacing: 3px;
   line-height: 1;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header.scrolled .yukkuri-text-en {
@@ -576,17 +590,35 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.1s;
+  pointer-events: none;
+}
+
+.header.scrolled .scrolled-nav {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* Logo Section - Left aligned when scrolled */
 .logo-section-left {
   display: flex;
   align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yukkuri-logo-small {
   text-decoration: none;
   color: inherit;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yukkuri-text-en-small {
@@ -610,6 +642,8 @@
   display: flex;
   align-items: center;
   gap: 30px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.2s;
 }
 
 .nav-link {
@@ -642,6 +676,7 @@
 @media (max-width: 768px) {
   .scrolled-nav {
     justify-content: center;
+    padding: 0 16px;
   }
   
   .nav-menu {
@@ -650,5 +685,13 @@
   
   .logo-section-left {
     margin: 0 auto;
+  }
+  
+  .header-container {
+    padding: 0 16px;
+  }
+  
+  .menu-toggle {
+    right: 16px;
   }
 }
