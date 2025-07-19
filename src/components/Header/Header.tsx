@@ -93,20 +93,10 @@ const Header: React.FC = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="mobile-menu">
-          <div className="mobile-search">
-            <Search className="search-icon" size={18} />
-            <input 
-              type="text" 
-              placeholder="搜索 ArchDaily" 
-              className="mobile-search-input"
-            />
-          </div>
           <nav className="mobile-nav">
-            <a href="#" className="mobile-nav-link">项目</a>
-            <a href="#" className="mobile-nav-link">图片</a>
-            <a href="#" className="mobile-nav-link">新闻</a>
-            <a href="#" className="mobile-nav-link">工作机会</a>
-            <a href="#" className="mobile-nav-link">建筑视频</a>
+            <a href="#" className="mobile-nav-link">空间设计</a>
+            <a href="#" className="mobile-nav-link">专项游学</a>
+            <a href="#" className="mobile-nav-link">展览策划</a>
           </nav>
         </div>
       )}

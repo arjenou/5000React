@@ -42,11 +42,6 @@
   background-color: rgba(0, 123, 255, 0.1);
 }
 
-.category-btn.active {
-  color: #007bff;
-  background-color: #ffffff;
-}
-
 .category-separator {
   color: #dee2e6;
   font-size: 18px;
