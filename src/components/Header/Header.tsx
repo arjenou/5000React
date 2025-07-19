@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Search } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
+    // 在SpaceDesign页面始终显示scrolled状态
+    if (location.pathname === '/space-design') {
+      setIsScrolled(true);
+      return;
+    }
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const threshold = 50; // 增加滚动阈值以防止闪动
@@ -22,7 +30,7 @@ const Header: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -50,28 +58,28 @@ const Header: React.FC = () => {
         <div className="header-container">
           {/* Default Layout - Centered Logo (始终渲染，通过CSS控制显示) */}
           <div className="logo-section-centered">
-            <a href="/" className="yukkuri-logo" onClick={handleLogoClick}>
+            <Link to="/" className="yukkuri-logo" onClick={handleLogoClick}>
               <div className="yukkuri-text-en">YUKKURI</div>
               <div className="yukkuri-text-jp">ユックリ</div>
-            </a>
+            </Link>
           </div>
 
           {/* Scrolled Layout - Navigation Bar (始终渲染，通过CSS控制显示) */}
           <div className="scrolled-nav">
             {/* Logo on left */}
             <div className="logo-section-left">
-              <a href="/" className="yukkuri-logo-small" onClick={handleLogoClick}>
+              <Link to="/" className="yukkuri-logo-small" onClick={handleLogoClick}>
                 <div className="yukkuri-text-en-small">YUKKURI</div>
                 <div className="yukkuri-text-jp-small">ユックリ</div>
-              </a>
+              </Link>
             </div>
 
             {/* Navigation Menu */}
             <nav className="nav-menu">
-              <a href="#" className="nav-link">空间设计</a>
-              <a href="#" className="nav-link">专项游学</a>
-              <a href="#" className="nav-link">展览策划</a>
-              <a href="#" className="nav-link contact-btn-nav">联系我们</a>
+              <Link to="/space-design" className="nav-link">空间设计</Link>
+              <Link to="/study-tours" className="nav-link">专项游学</Link>
+              <Link to="/exhibition-planning" className="nav-link">展览策划</Link>
+              <Link to="/contact" className="nav-link contact-btn-nav">联系我们</Link>
             </nav>
           </div>
 
@@ -90,9 +98,9 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="mobile-menu">
           <nav className="mobile-nav">
-            <a href="#" className="mobile-nav-link">空间设计</a>
-            <a href="#" className="mobile-nav-link">专项游学</a>
-            <a href="#" className="mobile-nav-link">展览策划</a>
+            <Link to="/space-design" className="mobile-nav-link">空间设计</Link>
+            <Link to="/study-tours" className="mobile-nav-link">专项游学</Link>
+            <Link to="/exhibition-planning" className="mobile-nav-link">展览策划</Link>
           </nav>
         </div>
       )}

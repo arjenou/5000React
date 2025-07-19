@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './CategoryNav.css';
 
 const CategoryNav: React.FC = () => {
@@ -26,11 +27,11 @@ const CategoryNav: React.FC = () => {
       <div className="container">
         <div className="category-nav-content">
           <div className="category-buttons">
-            <button className="category-btn">空间设计</button>
+            <Link to="/space-design" className="category-btn">空间设计</Link>
             <span className="category-separator">|</span>
-            <button className="category-btn">展览策划</button>
+            <Link to="/exhibition-planning" className="category-btn">展览策划</Link>
             <span className="category-separator">|</span>
-            <button className="category-btn">专项游学</button>
+            <Link to="/study-tours" className="category-btn">专项游学</Link>
           </div>
         </div>
       </div>
