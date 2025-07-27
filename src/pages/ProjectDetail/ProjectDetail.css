@@ -251,11 +251,17 @@
   }
   
   .project-image-section,
-  .project-analysis {
+  .project-content-section {
     padding: 24px 0;
   }
-  
-  .analysis-title {
-    font-size: 24px;
-  }
+}
+
+/* 项目内容部分 */
+.project-content-section {
+  padding: 60px 0;
+  background: #ffffff;
+}
+
+.project-content-section .container {
+  max-width: 1000px;
 }

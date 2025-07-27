@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Bookmark, Share2, ChevronRight } from 'lucide-react';
+import { getProjectContent } from '../../data/projectContent';
+import ContentRenderer from '../../components/ContentRenderer/ContentRenderer';
 import './ProjectDetail.css';
 
 interface Project {
@@ -186,15 +188,10 @@ const ProjectDetail: React.FC = () => {
         </div>
       </section>
 
-      {/* 项目分析 */}
-      <section className="project-analysis">
+      {/* 项目内容 */}
+      <section className="project-content-section">
         <div className="container">
-          <div className="analysis-content">
-            <h3 className="analysis-title">项目分析</h3>
-            <div className="analysis-text">
-              <p>{project.analysis}</p>
-            </div>
-          </div>
+          <ContentRenderer blocks={getProjectContent(project.id)} />
         </div>
       </section>
     </div>
