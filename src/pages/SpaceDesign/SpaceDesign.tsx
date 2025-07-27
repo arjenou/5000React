@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Bookmark } from 'lucide-react';
 import './SpaceDesign.css';
 
@@ -85,49 +86,49 @@ const SpaceDesign: React.FC = () => {
           {projects.map((project) => {
             return (
               <article key={project.id} className="project-card">
-                <div className="project-image">
-                  <img 
-                    src={project.images[0]} 
-                    alt={`${project.title}`} 
-                  />
-                  
-                  {/* Save Button */}
-                  <button className="save-btn" aria-label="保存项目">
-                    <Bookmark size={16} />
-                    <span>保存</span>
-                  </button>
-                  
-                  {/* Tags */}
-                  {/* <div className="project-overlay">
-                    <div className="project-tags">
-                      {project.tags.map((tag, index) => (
-                        <span key={index} className="project-tag">{tag}</span>
-                      ))}
-                    </div>
-                  </div> */}
-                </div>
-                
-                <div className="project-content">
-                  <h2 className="project-title">{project.title}</h2>
-                  <h3 className="project-subtitle">{project.subtitle}</h3>
-                  
-                  <div className="project-details">
-                    <div className="detail-row">
-                      <span className="detail-label">建筑设计:</span>
-                      <span className="detail-value architect-link">{project.architect}</span>
-                    </div>
+                <Link to={`/project/${project.id}`} className="project-link">
+                  <div className="project-image">
+                    <img 
+                      src={project.images[0]} 
+                      alt={`${project.title}`} 
+                    />
                     
-                    <div className="detail-row">
-                      <span className="detail-label">地址:</span>
-                      <span className="detail-value">{project.location}</span>
-                    </div>
+                    {/* Save Button */}
+                    <button 
+                      className="save-btn" 
+                      aria-label="保存项目"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                    >
+                      <Bookmark size={16} />
+                      <span>保存</span>
+                    </button>
+                  </div>
+                  
+                  <div className="project-content">
+                    <h2 className="project-title">{project.title}</h2>
+                    <h3 className="project-subtitle">{project.subtitle}</h3>
                     
-                    <div className="detail-row">
-                      <span className="detail-label">类别:</span>
-                      <span className="detail-value category-links">{project.category}</span>
+                    <div className="project-details">
+                      <div className="detail-row">
+                        <span className="detail-label">建筑设计:</span>
+                        <span className="detail-value architect-link">{project.architect}</span>
+                      </div>
+                      
+                      <div className="detail-row">
+                        <span className="detail-label">地址:</span>
+                        <span className="detail-value">{project.location}</span>
+                      </div>
+                      
+                      <div className="detail-row">
+                        <span className="detail-label">类别:</span>
+                        <span className="detail-value category-links">{project.category}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </article>
             );
           })}

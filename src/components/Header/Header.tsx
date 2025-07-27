@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
@@ -9,8 +9,10 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // 在SpaceDesign页面始终显示scrolled状态
-    if (location.pathname === '/space-design') {
+    // 在SpaceDesign、StudyTours和ProjectDetail页面始终显示scrolled状态
+    if (location.pathname === '/space-design' || 
+        location.pathname === '/study-tours' || 
+        location.pathname.startsWith('/project/')) {
       setIsScrolled(true);
       return;
     }

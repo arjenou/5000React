@@ -29,9 +29,9 @@ const CategoryNav: React.FC = () => {
           <div className="category-buttons">
             <Link to="/space-design" className="category-btn">空间设计</Link>
             <span className="category-separator">|</span>
-            <Link to="/exhibition-planning" className="category-btn">展览策划</Link>
-            <span className="category-separator">|</span>
             <Link to="/study-tours" className="category-btn">专项游学</Link>
+            <span className="category-separator">|</span>
+            <Link to="/exhibition-planning" className="category-btn">展览策划</Link>
           </div>
         </div>
       </div>

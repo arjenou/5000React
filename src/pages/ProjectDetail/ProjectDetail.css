@@ -1,0 +1,261 @@
+.project-detail {
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 面包屑导航 */
+.breadcrumb-nav {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6c757d;
+}
+
+.breadcrumb-link {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #0052a3;
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #adb5bd;
+  flex-shrink: 0;
+}
+
+.breadcrumb-current {
+  color: #343a40;
+  font-weight: 500;
+}
+
+/* 项目标题部分 */
+.project-header {
+  padding: 40px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dee2e6;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #f8f9fa;
+  border-color: #007bff;
+}
+
+.save-btn:hover {
+  color: #007bff;
+}
+
+.share-btn:hover {
+  color: #007bff;
+}
+
+.project-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.project-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+  margin: 0 0 32px 0;
+}
+
+.project-info {
+  margin-top: 32px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.info-label {
+  font-weight: 500;
+  color: #666;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.info-value {
+  color: #333;
+  flex: 1;
+}
+
+.architect-link {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.architect-link:hover {
+  text-decoration: underline;
+}
+
+.category-links {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.category-links:hover {
+  text-decoration: underline;
+}
+
+/* 项目图片部分 */
+.project-image-section {
+  padding: 40px 0;
+}
+
+.main-image {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 项目分析部分 */
+.project-analysis {
+  padding: 40px 0 80px 0;
+  background: #f8f9fa;
+}
+
+.analysis-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.analysis-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.analysis-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.analysis-text p {
+  margin: 0 0 20px 0;
+}
+
+.analysis-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .breadcrumb-nav {
+    padding: 10px 0;
+    font-size: 13px;
+  }
+  
+  .breadcrumb {
+    gap: 6px;
+  }
+  
+  .breadcrumb-separator {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .breadcrumb-current {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .project-header {
+    padding: 24px 0;
+  }
+  
+  .project-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .project-title {
+    font-size: 28px;
+  }
+  
+  .project-subtitle {
+    font-size: 20px;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-image-section,
+  .project-analysis {
+    padding: 24px 0;
+  }
+  
+  .analysis-title {
+    font-size: 24px;
+  }
+}
