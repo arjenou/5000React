@@ -7,11 +7,15 @@ import SpaceDesign from './pages/SpaceDesign/SpaceDesign';
 import StudyTours from './pages/StudyTours/StudyTours';
 import ExhibitionPlanning from './pages/ExhibitionPlanning/ExhibitionPlanning';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
+import ApiTest from './components/ApiTest/ApiTest';
 
 function App() {
+  const isDev = import.meta.env.DEV;
+
   return (
     <Router>
       <div className="App">
+        {isDev && <ApiTest />}
         <Header />
         <Routes>
           <Route path="/" element={

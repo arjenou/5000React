@@ -8,6 +8,19 @@ const API_BASE_URL = 'https://archdaily-5000react.wangyunjie1101.workers.dev';
 // 请求超时时间
 const REQUEST_TIMEOUT = 10000;
 
+// 开发模式调试
+const IS_DEV = import.meta.env.DEV;
+
+// 控制台日志工具
+const logger = {
+  info: (message: string, data?: any) => {
+    if (IS_DEV) console.log(`[API] ${message}`, data);
+  },
+  error: (message: string, error?: any) => {
+    if (IS_DEV) console.error(`[API Error] ${message}`, error);
+  }
+};
+
 // 项目类型定义
 export interface Project {
   id: string;
@@ -59,6 +72,8 @@ class HttpClient {
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     
+    logger.info(`Making request to: ${url}`, { options });
+    
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
@@ -67,26 +82,44 @@ class HttpClient {
         ...options,
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           ...options.headers,
         },
+        mode: 'cors',
+        credentials: 'omit',
         signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
 
+      logger.info(`Response status: ${response.status} for ${url}`);
+
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const errorText = await response.text();
+        const errorMessage = `HTTP ${response.status}: ${response.statusText} - ${errorText}`;
+        logger.error(errorMessage);
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
+      logger.info(`Successfully received data from ${url}`, data);
       return data;
     } catch (error) {
       clearTimeout(timeoutId);
       
       if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('请求超时，请稍后重试');
+        const timeoutError = '请求超时，请稍后重试';
+        logger.error(timeoutError, error);
+        throw new Error(timeoutError);
       }
       
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        const networkError = '网络连接失败，请检查网络连接或后端服务是否正常';
+        logger.error(networkError, error);
+        throw new Error(networkError);
+      }
+      
+      logger.error(`Request failed for ${url}`, error);
       throw error;
     }
   }
@@ -127,32 +160,99 @@ class ApiService {
 
   // 健康检查
   async healthCheck(): Promise<{ status: string; timestamp: string }> {
-    return this.client.get('/health');
+    try {
+      const result = await this.client.get<{ status: string; timestamp: string }>('/health');
+      logger.info('Health check successful', result);
+      return result;
+    } catch (error) {
+      logger.error('Health check failed', error);
+      throw error;
+    }
+  }
+
+  // 测试API连接
+  async testConnection(): Promise<ApiResponse<{ message: string }>> {
+    try {
+      const health = await this.healthCheck();
+      return {
+        success: true,
+        data: { message: `API连接正常 - ${health.status} at ${health.timestamp}` }
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: `API连接失败: ${error instanceof Error ? error.message : '未知错误'}`
+      };
+    }
   }
 
   // 获取所有项目
   async getProjects(): Promise<ApiResponse<Project[]>> {
-    return this.client.get('/api/projects');
+    try {
+      const response = await this.client.get<ApiResponse<Project[]>>('/api/projects');
+      return response;
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : '获取项目列表失败',
+      };
+    }
   }
 
   // 根据类型获取项目
   async getProjectsByType(type: Project['type']): Promise<ApiResponse<Project[]>> {
-    return this.client.get('/api/projects', { type });
+    try {
+      const response = await this.client.get<ApiResponse<Project[]>>('/api/projects', { type });
+      return response;
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : '获取项目列表失败',
+      };
+    }
   }
 
   // 根据分类获取项目
   async getProjectsByCategory(category: string): Promise<ApiResponse<Project[]>> {
-    return this.client.get(`/api/projects/category/${encodeURIComponent(category)}`);
+    try {
+      const response = await this.client.get<ApiResponse<Project[]>>(`/api/projects/category/${encodeURIComponent(category)}`);
+      return response;
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : '获取项目列表失败',
+      };
+    }
   }
 
   // 获取单个项目
   async getProject(id: string): Promise<ApiResponse<Project>> {
-    return this.client.get(`/api/projects/${id}`);
+    try {
+      // 直接获取项目数据（后端没有包装在ApiResponse中）
+      const project = await this.client.get<Project>(`/api/projects/${id}`);
+      return {
+        success: true,
+        data: project,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : '获取项目详情失败',
+      };
+    }
   }
 
   // 搜索项目
   async searchProjects(query: string): Promise<ApiResponse<Project[]>> {
-    return this.client.get('/api/projects/search', { q: query });
+    try {
+      const response = await this.client.get<ApiResponse<Project[]>>('/api/projects/search', { q: query });
+      return response;
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : '搜索失败',
+      };
+    }
   }
 
   // 创建项目
