@@ -1,0 +1,31 @@
+name = "archdaily-5000react"
+main = "src/index.ts"
+compatibility_date = "2024-08-15"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "archdaily-5000react"
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "5000React"
+database_id = "8b13497e-2963-4702-aa81-6a440a1d14f5"
+
+# R2 存储绑定
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "5000react"
+
+# 环境变量
+[vars]
+ENVIRONMENT = "production"
+CORS_ORIGIN = "https://fb4db67e.5000react-frontend.pages.dev"
+
+# 开发环境设置
+[env.development]
+name = "archdaily-5000react-dev"
+
+[env.development.vars]
+ENVIRONMENT = "development"
+CORS_ORIGIN = "http://localhost:5173"

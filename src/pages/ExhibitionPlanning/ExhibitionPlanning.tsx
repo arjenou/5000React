@@ -1,25 +1,26 @@
 import React from 'react';
 import { useProjectsByType } from '../../hooks/useApi';
 import PageLayout from '../../components/PageLayout/PageLayout';
-import './SpaceDesign.css';
+import './ExhibitionPlanning.css';
 
-const SpaceDesign: React.FC = () => {
-  const { data: projects, loading, error, refetch } = useProjectsByType('space_design');
+const ExhibitionPlanning: React.FC = () => {
+  const { data: projects, loading, error, refetch } = useProjectsByType('exhibition_planning');
 
   return (
     <PageLayout
-      title="空间设计"
+      title="展览策划"
       projects={projects}
       loading={loading}
       error={error}
       onRetry={refetch}
       labelMap={{
-        architect: '建筑设计',
+        architect: '策展人',
         location: '地址',
         category: '类别'
       }}
+      className="exhibition-planning"
     />
   );
 };
 
-export default SpaceDesign;
+export default ExhibitionPlanning;

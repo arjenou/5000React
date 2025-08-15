@@ -5,6 +5,7 @@ import CategoryNav from './components/CategoryNav/CategoryNav';
 import ArticleList from './components/ArticleList/ArticleList';
 import SpaceDesign from './pages/SpaceDesign/SpaceDesign';
 import StudyTours from './pages/StudyTours/StudyTours';
+import ExhibitionPlanning from './pages/ExhibitionPlanning/ExhibitionPlanning';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           } />
           <Route path="/space-design" element={<SpaceDesign />} />
           <Route path="/study-tours" element={<StudyTours />} />
+          <Route path="/exhibition-planning" element={<ExhibitionPlanning />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
         </Routes>
       </div>

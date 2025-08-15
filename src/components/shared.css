@@ -1,0 +1,251 @@
+/* 通用项目卡片样式 */
+.project-card {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 320px;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.project-link {
+  display: flex;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-image {
+  position: relative;
+  width: 280px;
+  min-width: 280px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.save-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.save-btn:hover {
+  background: white;
+  color: #007bff;
+  border-color: #007bff;
+  transform: translateY(-1px);
+}
+
+.project-content {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.project-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: #888;
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  color: #555;
+  line-height: 1.4;
+}
+
+.architect-link {
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.architect-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.category-links {
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.category-links:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* 通用页面布局样式 */
+.space-design-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Loading, Error, Empty States */
+.loading-state, .error-state, .empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-state p, .error-state p, .empty-state p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.retry-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.retry-btn:hover {
+  background: #0056b3;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .projects-grid {
+    gap: 24px;
+  }
+  
+  .project-image {
+    width: 250px;
+    min-width: 250px;
+  }
+  
+  .project-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .space-design-container {
+    padding: 0 16px;
+  }
+  
+  .projects-grid {
+    gap: 20px;
+  }
+  
+  .project-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .project-image {
+    width: 100%;
+    height: 240px;
+  }
+  
+  .project-content {
+    padding: 20px;
+  }
+  
+  .project-title {
+    font-size: 18px;
+  }
+  
+  .project-subtitle {
+    font-size: 14px;
+  }
+  
+  .detail-row {
+    font-size: 13px;
+  }
+  
+  .detail-label {
+    min-width: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    margin: 0 -4px;
+  }
+  
+  .project-content {
+    padding: 16px;
+  }
+  
+  .save-btn {
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
