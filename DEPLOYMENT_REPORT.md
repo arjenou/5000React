@@ -5,7 +5,8 @@
 ### 🌐 生产环境地址
 
 **前端 (Cloudflare Pages)**
-- 🔗 URL: https://74ccb92f.5000react-frontend.pages.dev
+- 🔗 主域名: https://yukkurihome.com
+- 🔗 Pages URL: https://81d2aae3.5000react-frontend.pages.dev
 - 📁 项目名称: 5000react-frontend
 - 🌟 状态: ✅ 部署成功
 

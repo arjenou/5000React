@@ -189,7 +189,7 @@ class ApiService {
   // 获取所有项目
   async getProjects(): Promise<ApiResponse<Project[]>> {
     try {
-      const response = await this.client.get<ApiResponse<Project[]>>('/api/projects');
+      const response = await this.client.get<ApiResponse<Project[]>>('/projects');
       return response;
     } catch (error) {
       return {
@@ -202,7 +202,7 @@ class ApiService {
   // 根据类型获取项目
   async getProjectsByType(type: Project['type']): Promise<ApiResponse<Project[]>> {
     try {
-      const response = await this.client.get<ApiResponse<Project[]>>('/api/projects', { type });
+      const response = await this.client.get<ApiResponse<Project[]>>('/projects', { type });
       return response;
     } catch (error) {
       return {
@@ -215,7 +215,7 @@ class ApiService {
   // 根据分类获取项目
   async getProjectsByCategory(category: string): Promise<ApiResponse<Project[]>> {
     try {
-      const response = await this.client.get<ApiResponse<Project[]>>(`/api/projects/category/${encodeURIComponent(category)}`);
+      const response = await this.client.get<ApiResponse<Project[]>>(`/projects/category/${encodeURIComponent(category)}`);
       return response;
     } catch (error) {
       return {
@@ -228,12 +228,8 @@ class ApiService {
   // 获取单个项目
   async getProject(id: string): Promise<ApiResponse<Project>> {
     try {
-      // 直接获取项目数据（后端没有包装在ApiResponse中）
-      const project = await this.client.get<Project>(`/api/projects/${id}`);
-      return {
-        success: true,
-        data: project,
-      };
+      const response = await this.client.get<ApiResponse<Project>>(`/projects/${id}`);
+      return response;
     } catch (error) {
       return {
         success: false,
@@ -245,7 +241,7 @@ class ApiService {
   // 搜索项目
   async searchProjects(query: string): Promise<ApiResponse<Project[]>> {
     try {
-      const response = await this.client.get<ApiResponse<Project[]>>('/api/projects/search', { q: query });
+      const response = await this.client.get<ApiResponse<Project[]>>('/projects/search', { q: query });
       return response;
     } catch (error) {
       return {
@@ -257,17 +253,17 @@ class ApiService {
 
   // 创建项目
   async createProject(project: Partial<Project>): Promise<ApiResponse<Project>> {
-    return this.client.post('/api/projects', project);
+    return this.client.post('/projects', project);
   }
 
   // 更新项目
   async updateProject(id: string, project: Partial<Project>): Promise<ApiResponse<Project>> {
-    return this.client.put(`/api/projects/${id}`, project);
+    return this.client.put(`/projects/${id}`, project);
   }
 
   // 删除项目
   async deleteProject(id: string): Promise<ApiResponse<void>> {
-    return this.client.delete(`/api/projects/${id}`);
+    return this.client.delete(`/projects/${id}`);
   }
 
   // 文件上传
@@ -302,7 +298,7 @@ class ApiService {
         reject(new Error('网络错误'));
       });
 
-      xhr.open('POST', `${API_BASE_URL}/api/upload`);
+      xhr.open('POST', `${API_BASE_URL}/upload`);
       xhr.send(formData);
     });
   }

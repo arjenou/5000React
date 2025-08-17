@@ -122,9 +122,13 @@ async function handleGetProjects(request: Request, env: Env): Promise<Response> 
 // 获取项目详情
 async function handleGetProject(request: Request, env: Env, projectId: string): Promise<Response> {
   try {
+    console.log('Getting project with ID:', projectId);
+    
     const result = await env.DB.prepare(`
       SELECT * FROM projects WHERE id = ? AND status = 'published'
     `).bind(projectId).first();
+    
+    console.log('Database query result:', result ? 'Found project' : 'No project found');
     
     if (!result) {
       return createResponse({
@@ -140,6 +144,8 @@ async function handleGetProject(request: Request, env: Env, projectId: string): 
       thumbnails: result.thumbnails ? JSON.parse(result.thumbnails as string) : [],
       metadata: result.metadata ? JSON.parse(result.metadata as string) : { views: 0, likes: 0, bookmarks: 0 },
     };
+    
+    console.log('Returning project:', (result as any).title);
     
     return createResponse({
       success: true,
@@ -240,6 +246,9 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     
+    // 添加调试日志
+    console.log(`[Worker] ${request.method} ${url.pathname}`);
+    
     // 处理OPTIONS预检请求
     if (request.method === 'OPTIONS') {
       return handleOptions(request, env);
@@ -276,9 +285,10 @@ export default {
     }
     
     // 404 - 路由未找到
+    console.log(`[Worker] 404 - Route not found: ${request.method} ${url.pathname}`);
     return createResponse({
       success: false,
-      error: '路由未找到',
+      error: `路由未找到: ${request.method} ${url.pathname}`,
     }, 404, request, env);
   },
 };

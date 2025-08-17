@@ -6,7 +6,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-height: 320px;
+  min-height: 280px;
 }
 
 .project-card:hover {
@@ -23,8 +23,8 @@
 
 .project-image {
   position: relative;
-  width: 280px;
-  min-width: 280px;
+  width: 240px;
+  min-width: 240px;
   height: 100%;
   overflow: hidden;
 }
@@ -68,7 +68,7 @@
 
 .project-content {
   flex: 1;
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
