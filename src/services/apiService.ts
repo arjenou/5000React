@@ -2,8 +2,8 @@
  * 前端API服务 - 与Cloudflare Worker后端通信
  */
 
-// API配置 - 硬编码后端URL以避免环境变量问题
-const API_BASE_URL = 'https://archdaily-5000react.wangyunjie1101.workers.dev';
+// API配置 - 从环境变量获取后端URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://archdaily-5000react.wangyunjie1101.workers.dev/api';
 
 // 请求超时时间
 const REQUEST_TIMEOUT = 10000;
