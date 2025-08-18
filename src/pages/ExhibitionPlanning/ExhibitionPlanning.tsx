@@ -4,7 +4,7 @@ import PageLayout from '../../components/PageLayout/PageLayout';
 import './ExhibitionPlanning.css';
 
 const ExhibitionPlanning: React.FC = () => {
-  const { data: projects, loading, error, refetch } = useProjectsByType('exhibition_planning');
+  const { data: projects, loading, error, refetch } = useProjectsByType('exhibition-planning');
 
   return (
     <PageLayout

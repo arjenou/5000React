@@ -4,7 +4,7 @@ import PageLayout from '../../components/PageLayout/PageLayout';
 import './SpaceDesign.css';
 
 const SpaceDesign: React.FC = () => {
-  const { data: projects, loading, error, refetch } = useProjectsByType('space_design');
+  const { data: projects, loading, error, refetch } = useProjectsByType('space-design');
 
   return (
     <PageLayout

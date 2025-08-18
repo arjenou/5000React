@@ -2,7 +2,8 @@
  * React Hooks for API data management
  */
 import { useState, useEffect, useCallback } from 'react';
-import { apiService, type Project } from '../services/apiService';
+import { apiService } from '../services/apiService';
+import type { Project, ProjectFormData } from '../types/project';
 
 // 通用的API状态类型
 interface ApiState<T> {
@@ -73,7 +74,7 @@ export const useProjectsByType = (type: Project['type']) => {
       
       if (response.success && response.data) {
         // 由于后端筛选可能有问题，在前端再次筛选确保正确性
-        const filteredData = response.data.filter(project => project.type === type);
+        const filteredData = response.data.filter((project: Project) => project.type === type);
         
         setState({
           data: filteredData,
@@ -226,7 +227,7 @@ export const useProjectManagement = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createProject = useCallback(async (project: Partial<Project>) => {
+  const createProject = useCallback(async (project: ProjectFormData) => {
     setLoading(true);
     setError(null);
     
@@ -249,7 +250,7 @@ export const useProjectManagement = () => {
     }
   }, []);
 
-  const updateProject = useCallback(async (id: string, project: Partial<Project>) => {
+  const updateProject = useCallback(async (id: string, project: ProjectFormData) => {
     setLoading(true);
     setError(null);
     
@@ -316,7 +317,7 @@ export const useFileUpload = () => {
     setError(null);
     
     try {
-      const response = await apiService.uploadFile(file, (progress) => {
+      const response = await apiService.uploadFile(file, (progress: number) => {
         setProgress(progress);
       });
       

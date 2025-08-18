@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Bookmark } from 'lucide-react';
-import { type Project } from '../../services/apiService';
+import type { Project } from '../../types/project';
 import '../shared.css';
 
 interface ProjectCardProps {
@@ -26,7 +26,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <Link to={`/project/${project.id}`} className="project-link">
         <div className="project-image">
           <img 
-            src={project.images?.[0] || '/api/placeholder/400/300'} 
+            src={typeof project.images?.[0] === 'string' ? project.images[0] : project.images?.[0]?.original_url || '/api/placeholder/400/300'} 
             alt={project.title} 
           />
           
@@ -46,7 +46,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         
         <div className="project-content">
           <h2 className="project-title">{project.title}</h2>
-          <h3 className="project-subtitle">{project.subtitle}</h3>
           
           <div className="project-details">
             {project.architect && (

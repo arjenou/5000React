@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Project } from '../../services/apiService';
+import type { Project } from '../../types/project';
 import ProjectCard from '../ProjectCard/ProjectCard';
 import '../shared.css';
 

@@ -20,7 +20,8 @@ bucket_name = "5000react"
 # 环境变量
 [vars]
 ENVIRONMENT = "production"
-CORS_ORIGIN = "https://yukkurihome.com,https://81d2aae3.5000react-frontend.pages.dev,https://74ccb92f.5000react-frontend.pages.dev"
+CORS_ORIGIN = "https://yukkurihome.com,https://81d2aae3.5000react-frontend.pages.dev,https://74ccb92f.5000react-frontend.pages.dev,https://3eb37ff0.5000react-frontend.pages.dev,https://c7ae3d2c.5000react-frontend.pages.dev,https://9c588785.5000react-frontend.pages.dev"
+JWT_SECRET = "archdaily-jwt-secret-key-2025"
 
 # 开发环境设置
 [env.development]
@@ -29,3 +30,4 @@ name = "archdaily-5000react-dev"
 [env.development.vars]
 ENVIRONMENT = "development"
 CORS_ORIGIN = "http://localhost:5173"
+JWT_SECRET = "archdaily-jwt-secret-key-dev"

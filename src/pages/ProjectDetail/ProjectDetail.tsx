@@ -1,46 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Bookmark, Share2, ChevronRight, MessageCircle, Heart } from 'lucide-react';
-import { useProject } from '../../hooks/useApi';
+import { apiService } from '../../services/apiService';
+import type { Project } from '../../types/project';
 import './ProjectDetail.css';
 
-const ProjectDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data: project, loading, error } = useProject(id || '');
+export const ProjectDetail: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (slug) {
+      loadProject(slug);
+    }
+  }, [slug]);
+
+  const loadProject = async (projectSlug: string) => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await apiService.getPublicProject(projectSlug);
+      if (response.success && response.data) {
+        setProject(response.data);
+      } else {
+        setError(response.error || '项目不存在');
+      }
+    } catch (err) {
+      setError('网络错误，请稍后重试');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('zh-CN');
+  };
+
+  const renderProjectDetails = (htmlContent: string) => {
+    return { __html: htmlContent };
+  };
 
   if (loading) {
     return (
       <div className="project-detail">
-        <div className="container">
-          <div className="loading-state">
-            <p>正在加载项目详情...</p>
-          </div>
-        </div>
+        <div className="loading">加载中...</div>
       </div>
     );
   }
 
-  if (error) {
+  if (error || !project) {
     return (
       <div className="project-detail">
-        <div className="container">
-          <div className="error-state">
-            <p>加载失败: {error}</p>
-            <Link to="/" className="back-link">返回首页</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!project) {
-    return (
-      <div className="project-detail">
-        <div className="container">
-          <div className="not-found-state">
-            <p>项目未找到</p>
-            <Link to="/" className="back-link">返回首页</Link>
-          </div>
+        <div className="error-state">
+          <h2>项目未找到</h2>
+          <p>{error || '抱歉，您访问的项目不存在或已被删除。'}</p>
+          <Link to="/projects" className="btn btn-primary">
+            返回项目列表
+          </Link>
         </div>
       </div>
     );
@@ -48,146 +67,165 @@ const ProjectDetail: React.FC = () => {
 
   return (
     <div className="project-detail">
-      {/* 面包屑导航 */}
-      <div className="breadcrumb-section">
-        <div className="container">
-          <div className="breadcrumb">
-            <Link to="/" className="breadcrumb-link">ArchDaily</Link>
-            <ChevronRight size={14} className="breadcrumb-separator" />
-            <span className="breadcrumb-link">{project.category}</span>
-            <ChevronRight size={14} className="breadcrumb-separator" />
-            <span className="breadcrumb-current">{project.title}</span>
-          </div>
-        </div>
-      </div>
+      <nav className="project-breadcrumb">
+        <Link to="/">首页</Link>
+        <span className="separator">/</span>
+        <Link to="/projects">项目</Link>
+        <span className="separator">/</span>
+        <span>{project.title}</span>
+      </nav>
 
-      {/* 项目标题和操作 */}
-      <div className="project-header">
-        <div className="container">
-          <div className="header-content">
-            <div className="title-section">
-              <h1 className="project-title">{project.title}</h1>
-              <p className="project-subtitle">{project.architect}</p>
+      <header className="project-header">
+        <div className="project-meta">
+          <span className="category">{project.category}</span>
+          {project.featured && (
+            <span className="featured-badge">推荐项目</span>
+          )}
+        </div>
+        
+        <h1 className="project-title">{project.title}</h1>
+        
+        <div className="project-info-grid">
+          <div className="info-item">
+            <label>建筑师</label>
+            <span>{project.architect}</span>
+          </div>
+          <div className="info-item">
+            <label>地点</label>
+            <span>{project.location}</span>
+          </div>
+          <div className="info-item">
+            <label>年份</label>
+            <span>{project.project_year}</span>
+          </div>
+          {project.area && (
+            <div className="info-item">
+              <label>建筑面积</label>
+              <span>{project.area} m²</span>
             </div>
+          )}
+          {project.client && (
+            <div className="info-item">
+              <label>委托方</label>
+              <span>{project.client}</span>
+            </div>
+          )}
+        </div>
+
+        {project.description && (
+          <div className="project-description">
+            <p>{project.description}</p>
+          </div>
+        )}
+      </header>
+
+      {project.images && project.images.length > 0 && (
+        <section className="project-gallery">
+          <div className="main-image">
+            <img
+              src={project.images[selectedImageIndex]?.original_url}
+              alt={project.images[selectedImageIndex]?.alt || project.title}
+              className="featured-image"
+            />
             
-            <div className="action-buttons">
-              <button className="action-btn save-btn">
-                <Bookmark size={20} />
-              </button>
-              <button className="action-btn share-btn">
-                <Share2 size={20} />
-              </button>
-              <button className="action-btn comment-btn">
-                <MessageCircle size={20} />
-              </button>
-              <button className="collect-btn">
-                <Heart size={16} />
-                <span>收藏项目</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 主要内容区域 */}
-      <div className="main-content">
-        <div className="container">
-          <div className="content-layout">
-            {/* 左侧内容 */}
-            <div className="content-main">
-              {/* 主图 */}
-              <div className="main-image-container">
-                <img 
-                  src={project.images?.[0] || project.featured_image || '/api/placeholder/800/500'} 
-                  alt={project.title}
-                  className="main-image"
-                />
-                <div className="image-counter">
-                  <span>1 / {project.images?.length || 1}</span>
-                </div>
-              </div>
-
-              {/* 缩略图 */}
-              {project.images && project.images.length > 1 && (
-                <div className="thumbnail-gallery">
-                  {project.images.slice(1, 5).map((image, index) => (
-                    <div key={index} className="thumbnail-item">
-                      <img src={image} alt={`${project.title} - ${index + 2}`} />
-                    </div>
-                  ))}
-                  {project.images.length > 5 && (
-                    <div className="thumbnail-item more-images">
-                      <span>+ {project.images.length - 5}</span>
-                    </div>
+            {project.images.length > 1 && (
+              <div className="gallery-nav">
+                <button
+                  onClick={() => setSelectedImageIndex(prev => 
+                    prev > 0 ? prev - 1 : project.images!.length - 1
                   )}
-                </div>
-              )}
-
-              {/* 项目描述 */}
-              <div className="project-description">
-                <div className="description-label">概述</div>
-                <div className="description-content">
-                  <p>{project.excerpt}</p>
-                  {/* 这里可以添加更多项目描述内容 */}
-                </div>
+                  className="nav-btn prev"
+                  aria-label="上一张图片"
+                >
+                  ◀
+                </button>
+                <button
+                  onClick={() => setSelectedImageIndex(prev => 
+                    prev < project.images!.length - 1 ? prev + 1 : 0
+                  )}
+                  className="nav-btn next"
+                  aria-label="下一张图片"
+                >
+                  ▶
+                </button>
               </div>
-            </div>
+            )}
+          </div>
 
-            {/* 右侧信息栏 */}
-            <div className="content-sidebar">
-              <div className="project-info-card">
-                <div className="info-section">
-                  <div className="info-item">
-                    <span className="info-label">建筑师</span>
-                    <span className="info-value architect-name">{project.architect}</span>
-                  </div>
-                  
-                  <div className="info-item">
-                    <span className="info-label">地点</span>
-                    <span className="info-value">{project.location}</span>
-                  </div>
-                  
-                  <div className="info-item">
-                    <span className="info-label">类别</span>
-                    <span className="info-value category-links">{project.category}</span>
-                  </div>
-                  
-                  <div className="info-item">
-                    <span className="info-label">面积</span>
-                    <span className="info-value">{project.area}</span>
-                  </div>
-                  
-                  <div className="info-item">
-                    <span className="info-label">项目年份</span>
-                    <span className="info-value">{project.year}</span>
-                  </div>
-                  
-                  <div className="info-item">
-                    <span className="info-label">摄影师</span>
-                    <span className="info-value photographer-name">{project.photographer}</span>
-                  </div>
-                </div>
-
-                {/* 标签 */}
-                {project.tags && project.tags.length > 0 && (
-                  <div className="tags-section">
-                    <div className="tags-label">标签</div>
-                    <div className="tags-list">
-                      {project.tags.map((tag, index) => (
-                        <span key={index} className="tag">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+          {project.images.length > 1 && (
+            <div className="thumbnail-gallery">
+              {project.images.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImageIndex(index)}
+                  className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
+                >
+                  <img
+                    src={image.thumbnail_url || image.original_url}
+                    alt={image.alt || `${project.title} - 图片 ${index + 1}`}
+                  />
+                </button>
+              ))}
             </div>
+          )}
+        </section>
+      )}
+
+      <section className="project-content">
+        <div className="content-wrapper">
+          {project.details && (
+            <div 
+              className="project-details"
+              dangerouslySetInnerHTML={renderProjectDetails(project.details)}
+            />
+          )}
+        </div>
+      </section>
+
+      {project.tags && (
+        <section className="project-tags">
+          <h3>相关标签</h3>
+          <div className="tags-list">
+            {project.tags.split(',').map((tag, index) => (
+              <span key={index} className="tag">
+                {tag.trim()}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <footer className="project-footer">
+        <div className="project-actions">
+          <Link to="/projects" className="btn btn-outline">
+            返回项目列表
+          </Link>
+          
+          <div className="share-buttons">
+            <button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({
+                    title: project.title,
+                    text: project.description || `${project.architect}设计的${project.title}`,
+                    url: window.location.href,
+                  });
+                } else {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert('链接已复制到剪贴板');
+                }
+              }}
+              className="btn btn-secondary"
+            >
+              分享项目
+            </button>
           </div>
         </div>
-      </div>
+
+        <div className="project-metadata">
+          <small>最后更新：{formatDate(project.updated_at)}</small>
+        </div>
+      </footer>
     </div>
   );
 };
-
-export default ProjectDetail;

@@ -6,31 +6,59 @@ import ArticleList from './components/ArticleList/ArticleList';
 import SpaceDesign from './pages/SpaceDesign/SpaceDesign';
 import StudyTours from './pages/StudyTours/StudyTours';
 import ExhibitionPlanning from './pages/ExhibitionPlanning/ExhibitionPlanning';
-import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
-import ApiTest from './components/ApiTest/ApiTest';
+import { AdminLogin } from './components/AdminLogin/AdminLogin';
+import { AdminDashboard } from './components/AdminDashboard/AdminDashboard';
+import { ToastProvider } from './components/Toast/Toast';
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 
 function App() {
-  const isDev = import.meta.env.DEV;
-
   return (
-    <Router>
-      <div className="App">
-        {isDev && <ApiTest />}
-        <Header />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <CategoryNav />
-              <ArticleList />
-            </>
-          } />
-          <Route path="/space-design" element={<SpaceDesign />} />
-          <Route path="/study-tours" element={<StudyTours />} />
-          <Route path="/exhibition-planning" element={<ExhibitionPlanning />} />
-          <Route path="/project/:id" element={<ProjectDetail />} />
-        </Routes>
-      </div>
-    </Router>
+    <ErrorBoundary>
+      <ToastProvider>
+        <Router>
+          <div className="App">
+            <Routes>
+              {/* Admin routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/*" element={<AdminDashboard />} />
+              
+              {/* Public routes */}
+              <Route path="/" element={
+                <>
+                  <Header />
+                  <CategoryNav />
+                  <ArticleList />
+                </>
+              } />
+              <Route path="/space-design" element={
+                <>
+                  <Header />
+                  <SpaceDesign />
+                </>
+              } />
+              <Route path="/study-tours" element={
+                <>
+                  <Header />
+                  <StudyTours />
+                </>
+              } />
+              <Route path="/exhibition-planning" element={
+                <>
+                  <Header />
+                  <ExhibitionPlanning />
+                </>
+              } />
+              <Route path="/project/:id" element={
+                <>
+                  <Header />
+                  <div>项目详情页面开发中...</div>
+                </>
+              } />
+            </Routes>
+          </div>
+        </Router>
+      </ToastProvider>
+    </ErrorBoundary>
   );
 }
 
