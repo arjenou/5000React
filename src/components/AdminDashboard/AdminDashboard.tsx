@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { AdminLogin } from '../AdminLogin/AdminLogin';
 import { OptimizedProjectList } from '../OptimizedProjectList/OptimizedProjectList';
 import ProjectForm from '../ProjectForm/ProjectForm';
@@ -153,7 +153,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="breadcrumb">
               <span>管理后台</span>
               <span className="breadcrumb-separator">/</span>
-              <span>{menuItems.find(item => item.path === location.pathname)?.label || '页面'}</span>
+              <span>{menuItems.find(item => item.path === location.pathname)?.label || `页面 (${location.pathname})`}</span>
             </div>
           </div>
 
@@ -168,10 +168,12 @@ export const AdminDashboard: React.FC = () => {
         <div className="admin-content">
           <Routes>
             <Route path="/" element={<Navigate to="projects" replace />} />
-            <Route path="projects" element={<OptimizedProjectList isAdmin={true} />} />
-            <Route path="projects/new" element={<ProjectForm isEdit={false} />} />
-            <Route path="projects/:id/edit" element={<ProjectForm isEdit={true} />} />
-            <Route path="projects/:id" element={<ProjectDetailAdmin />} />
+            <Route path="projects">
+              <Route index element={<OptimizedProjectList isAdmin={true} />} />
+              <Route path="new" element={<ProjectForm isEdit={false} />} />
+              <Route path=":id" element={<ProjectDetailAdmin />} />
+              <Route path=":id/edit" element={<ProjectForm isEdit={true} />} />
+            </Route>
             <Route path="settings" element={<AdminSettings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -183,10 +185,13 @@ export const AdminDashboard: React.FC = () => {
 
 // 临时组件，待后续实现
 const ProjectDetailAdmin: React.FC = () => {
+  const { id } = useParams();
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
       <h2>项目详情页面</h2>
       <p>此页面正在开发中...</p>
+      <p>当前路径参数 ID: {id}</p>
+      <p>如果显示 ID 为 "new"，说明路由匹配错误</p>
     </div>
   );
 };

@@ -87,9 +87,10 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 400px));
   gap: 1.5rem;
   margin-bottom: 2rem;
+  justify-content: center;
 }
 
 .project-card {
@@ -350,6 +351,25 @@
 }
 
 /* 响应式设计 */
+@media (min-width: 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 380px));
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 360px));
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 340px));
+  }
+}
+
 @media (max-width: 768px) {
   .optimized-project-list {
     padding: 1rem;

@@ -1,0 +1,5 @@
+# SPA fallback
+/* /index.html 200
+
+# API 请求重定向到 Worker
+/api/* https://archdaily-5000react.wangyunjie1101.workers.dev/api/:splat 200
