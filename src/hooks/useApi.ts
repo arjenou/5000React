@@ -345,3 +345,6 @@ export const useFileUpload = () => {
     uploadFile,
   };
 };
+
+// 认证Hook
+export { useAuth } from './useAuth';

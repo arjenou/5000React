@@ -18,6 +18,9 @@ class ApiService {
 
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
+      console.debug('Adding Authorization header with token:', this.token.substring(0, 20) + '...');
+    } else {
+      console.debug('No token available for Authorization header');
     }
 
     return headers;
@@ -140,15 +143,32 @@ class ApiService {
   }
 
   async verifyAuth(): Promise<boolean> {
-    if (!this.token) return false;
+    if (!this.token) {
+      console.debug('No token found for auth verification');
+      return false;
+    }
 
     try {
+      console.debug('Verifying auth with token:', this.token.substring(0, 20) + '...');
+      
       const response = await fetch(`${this.baseUrl}/admin/verify`, {
+        method: 'GET',
         headers: this.getHeaders(),
       });
 
-      return response.ok;
-    } catch {
+      console.debug('Auth verification response status:', response.status);
+      
+      if (response.ok) {
+        const result = await response.json();
+        console.debug('Auth verification result:', result);
+        return result.success === true;
+      } else {
+        const errorText = await response.text();
+        console.debug('Auth verification failed:', response.status, errorText);
+        return false;
+      }
+    } catch (error) {
+      console.error('Auth verification error:', error);
       return false;
     }
   }

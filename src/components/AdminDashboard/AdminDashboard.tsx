@@ -1,56 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Link, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { AdminLogin } from '../AdminLogin/AdminLogin';
 import { OptimizedProjectList } from '../OptimizedProjectList/OptimizedProjectList';
 import ProjectForm from '../ProjectForm/ProjectForm';
-import { apiService } from '../../services/apiService';
+import { useAuth } from '../../hooks/useApi';
 // import { useToastHelpers } from '../Toast/Toast'; // 待后续使用
 import './AdminDashboard.css';
 
 export const AdminDashboard: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { isAuthenticated, loading, error, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   // const { success, error } = useToastHelpers(); // 待后续使用
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    setLoading(true);
-    
-    // 首先检查本地是否有 token
-    const token = localStorage.getItem('admin_token');
-    if (!token) {
-      setIsAuthenticated(false);
-      setLoading(false);
-      return;
-    }
-
-    // 验证 token 是否有效
-    try {
-      const isAuth = await apiService.verifyAuth();
-      setIsAuthenticated(isAuth);
-    } catch (error) {
-      // 如果验证失败，清除本地 token
-      localStorage.removeItem('admin_token');
-      setIsAuthenticated(false);
-    }
-    
-    setLoading(false);
-  };
-
   const handleLogin = () => {
-    setIsAuthenticated(true);
     navigate('/admin/projects');
   };
 
   const handleLogout = () => {
-    apiService.logout();
-    setIsAuthenticated(false);
+    logout();
     navigate('/admin/login');
   };
 

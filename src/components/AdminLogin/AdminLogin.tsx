@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiService } from '../../services/apiService';
+import { useAuth } from '../../hooks/useApi';
 import './AdminLogin.css';
 
 interface AdminLoginProps {
@@ -9,35 +9,24 @@ interface AdminLoginProps {
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   const navigate = useNavigate();
+  const { login, loading, error } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const response = await apiService.login(username, password);
-      
-      if (response.success) {
-        setSuccess('登录成功！');
-        // 调用回调函数（如果提供）
-        onLogin?.();
-        // 跳转到管理后台
-        setTimeout(() => {
-          navigate('/admin/projects');
-        }, 1000);
-      } else {
-        setError(response.error || '登录失败');
-      }
-    } catch (err) {
-      setError('网络错误，请稍后重试');
-    } finally {
-      setLoading(false);
+    
+    const result = await login(username, password);
+    
+    if (result.success) {
+      setSuccess('登录成功！');
+      // 调用回调函数（如果提供）
+      onLogin?.();
+      // 跳转到管理后台
+      setTimeout(() => {
+        navigate('/admin/projects');
+      }, 1000);
     }
   };
 
