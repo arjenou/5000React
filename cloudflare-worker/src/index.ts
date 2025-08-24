@@ -221,9 +221,15 @@ async function handleAdminLogin(request: Request, env: Env): Promise<Response> {
       }, 400, request, env);
     }
     
-    // 临时硬编码管理员账户
+    // 临时硬编码管理员账户 - 但生成真实的JWT
     if (username === 'admin' && (password === 'admin123' || password === 'admin')) {
-      const token = 'test-admin-token';
+      const payload: JWTPayload = {
+        userId: 'test-admin',
+        username: 'admin',
+        exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60), // 24小时过期
+      };
+      
+      const token = await signJWT(payload, env.JWT_SECRET || 'default-secret');
       
       return createResponse({
         success: true,
@@ -340,6 +346,21 @@ async function handleAdminVerify(request: Request, env: Env): Promise<Response> 
         success: false,
         error: '无效的认证令牌',
       }, 401, request, env);
+    }
+
+    // 处理测试管理员用户
+    if (payload.userId === 'test-admin') {
+      return createResponse({
+        success: true,
+        data: {
+          user: {
+            id: 'test-admin',
+            username: 'admin',
+            email: 'admin@test.com',
+            role: 'admin',
+          },
+        },
+      }, 200, request, env);
     }
 
     // 验证用户是否仍然存在

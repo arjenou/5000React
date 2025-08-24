@@ -3,7 +3,9 @@ import { cache } from '../utils/cache';
 import { retry, generateCacheKey } from '../utils/helpers';
 
 class ApiService {
-  private baseUrl = 'https://archdaily-5000react.wangyunjie1101.workers.dev/api';
+  private baseUrl = import.meta.env.MODE === 'development' 
+    ? 'https://archdaily-5000react-dev.wangyunjie1101.workers.dev/api'
+    : 'https://archdaily-5000react.wangyunjie1101.workers.dev/api';
   private token: string | null = null;
   private requestQueue = new Map<string, Promise<any>>();
 
@@ -18,9 +20,6 @@ class ApiService {
 
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
-      console.debug('Adding Authorization header with token:', this.token.substring(0, 20) + '...');
-    } else {
-      console.debug('No token available for Authorization header');
     }
 
     return headers;
@@ -144,27 +143,19 @@ class ApiService {
 
   async verifyAuth(): Promise<boolean> {
     if (!this.token) {
-      console.debug('No token found for auth verification');
       return false;
     }
 
     try {
-      console.debug('Verifying auth with token:', this.token.substring(0, 20) + '...');
-      
       const response = await fetch(`${this.baseUrl}/admin/verify`, {
         method: 'GET',
         headers: this.getHeaders(),
       });
 
-      console.debug('Auth verification response status:', response.status);
-      
       if (response.ok) {
         const result = await response.json();
-        console.debug('Auth verification result:', result);
         return result.success === true;
       } else {
-        const errorText = await response.text();
-        console.debug('Auth verification failed:', response.status, errorText);
         return false;
       }
     } catch (error) {

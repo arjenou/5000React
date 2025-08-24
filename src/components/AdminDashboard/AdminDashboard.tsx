@@ -8,7 +8,7 @@ import { useAuth } from '../../hooks/useApi';
 import './AdminDashboard.css';
 
 export const AdminDashboard: React.FC = () => {
-  const { isAuthenticated, loading, error, logout } = useAuth();
+  const { isAuthenticated, loading, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
