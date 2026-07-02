@@ -6,6 +6,7 @@ import ArticleList from './components/ArticleList/ArticleList';
 import SpaceDesign from './pages/SpaceDesign/SpaceDesign';
 import StudyTours from './pages/StudyTours/StudyTours';
 import ExhibitionPlanning from './pages/ExhibitionPlanning/ExhibitionPlanning';
+import Contact from './pages/Contact/Contact';
 import { AdminLogin } from './components/AdminLogin/AdminLogin';
 import { AdminDashboard } from './components/AdminDashboard/AdminDashboard';
 import { ToastProvider } from './components/Toast/Toast';
@@ -46,6 +47,12 @@ function App() {
                 <>
                   <Header />
                   <ExhibitionPlanning />
+                </>
+              } />
+              <Route path="/contact" element={
+                <>
+                  <Header />
+                  <Contact />
                 </>
               } />
               <Route path="/project/:id" element={

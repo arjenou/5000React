@@ -1,0 +1,121 @@
+.contact-page {
+  min-height: calc(100vh - 72px);
+  padding: 72px 20px 96px;
+  background: #f7f8fa;
+}
+
+.contact-page-container {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.contact-page-header {
+  max-width: 680px;
+  margin-bottom: 40px;
+}
+
+.contact-page-eyebrow,
+.recruitment-label {
+  margin-bottom: 12px;
+  color: #1e5ba8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contact-page-header h1 {
+  margin-bottom: 16px;
+  color: #20242a;
+  font-size: clamp(36px, 6vw, 56px);
+  text-wrap: balance;
+}
+
+.contact-page-header > p:last-child,
+.recruitment-copy > p {
+  color: #626a73;
+  font-size: 18px;
+  text-wrap: pretty;
+}
+
+.recruitment-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 64px;
+  align-items: center;
+  padding: 56px;
+  background: #ffffff;
+  border: 1px solid #e6e9ed;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(24, 35, 48, 0.06);
+}
+
+.recruitment-copy h2 {
+  margin-bottom: 16px;
+  color: #20242a;
+  font-size: clamp(26px, 4vw, 36px);
+  text-wrap: balance;
+}
+
+.recruitment-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  color: #1e5ba8;
+  font-size: 17px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.recruitment-email:hover {
+  color: #164a8a;
+  text-decoration: underline;
+}
+
+.recruitment-email:focus-visible {
+  outline: 2px solid #1e5ba8;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.recruitment-qr {
+  margin: 0;
+  text-align: center;
+}
+
+.recruitment-qr img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #e6e9ed;
+  border-radius: 8px;
+}
+
+.recruitment-qr figcaption {
+  margin-top: 12px;
+  color: #626a73;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 48px 16px 64px;
+  }
+
+  .contact-page-header {
+    margin-bottom: 28px;
+  }
+
+  .recruitment-card {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 32px 24px;
+  }
+
+  .recruitment-qr {
+    width: min(100%, 280px);
+    margin: 0 auto;
+  }
+}

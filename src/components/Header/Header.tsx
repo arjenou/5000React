@@ -12,6 +12,8 @@ const Header: React.FC = () => {
     // 在SpaceDesign、StudyTours和ProjectDetail页面始终显示scrolled状态
     if (location.pathname === '/space-design' || 
         location.pathname === '/study-tours' || 
+        location.pathname === '/exhibition-planning' ||
+        location.pathname === '/contact' ||
         location.pathname.startsWith('/project/')) {
       setIsScrolled(true);
       return;
@@ -103,6 +105,7 @@ const Header: React.FC = () => {
             <Link to="/space-design" className="mobile-nav-link">空间设计</Link>
             <Link to="/study-tours" className="mobile-nav-link">专项游学</Link>
             <Link to="/exhibition-planning" className="mobile-nav-link">展览策划</Link>
+            <Link to="/contact" className="mobile-nav-link" onClick={toggleMenu}>联系我们</Link>
           </nav>
         </div>
       )}
