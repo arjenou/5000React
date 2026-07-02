@@ -80,9 +80,9 @@ const Header: React.FC = () => {
 
             {/* Navigation Menu */}
             <nav className="nav-menu">
-              <Link to="/space-design" className="nav-link">空间设计</Link>
-              <Link to="/study-tours" className="nav-link">专项游学</Link>
-              <Link to="/exhibition-planning" className="nav-link">展览策划</Link>
+              <Link to="/space-design" className="nav-link category-nav-link">空间设计</Link>
+              <Link to="/study-tours" className="nav-link category-nav-link">专项游学</Link>
+              <Link to="/exhibition-planning" className="nav-link category-nav-link">展览策划</Link>
               <Link to="/contact" className="nav-link contact-btn-nav">联系我们</Link>
             </nav>
           </div>
