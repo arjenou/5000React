@@ -667,11 +667,17 @@
 }
 
 .contact-btn-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
   background: #1e5ba8;
   color: white !important;
-  padding: 10px 20px;
+  padding: 0 20px;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 160ms ease;
 }
 
 .contact-btn-nav:hover {
