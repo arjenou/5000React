@@ -4,8 +4,8 @@ import { retry, generateCacheKey } from '../utils/helpers';
 
 class ApiService {
   private baseUrl = import.meta.env.MODE === 'development' 
-    ? 'https://archdaily-5000react-dev.wangyunjie1101.workers.dev/api'
-    : 'https://archdaily-5000react.wangyunjie1101.workers.dev/api';
+    ? 'https://yukkuri-project.wangyunjie1101.workers.dev/api'
+    : '/api';
   private token: string | null = null;
   private requestQueue = new Map<string, Promise<any>>();
 
@@ -301,7 +301,16 @@ class ApiService {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      return await response.json();
+      const result = await response.json();
+      const projects = Array.isArray(result.data)
+        ? result.data.map((project: Record<string, unknown>) => this.normalizeProject(project))
+        : [];
+
+      return {
+        success: true,
+        data: projects,
+        pagination: result.pagination,
+      };
     } catch (error) {
       console.error('Get projects error:', error);
       return {
@@ -314,13 +323,13 @@ class ApiService {
   // 按类型获取项目
   async getProjectsByType(type: string): Promise<ApiResponse<Project[]>> {
     try {
-      const response = await fetch(`${this.baseUrl}/projects?type=${encodeURIComponent(type)}`);
+      const response = await this.getProjects();
+      if (!response.success || !response.data) return response;
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      return await response.json();
+      return {
+        ...response,
+        data: response.data.filter(project => project.type === type),
+      };
     } catch (error) {
       console.error('Get projects by type error:', error);
       return {
@@ -328,6 +337,39 @@ class ApiService {
         error: error instanceof Error ? error.message : '获取项目列表失败'
       };
     }
+  }
+
+  private normalizeProject(project: Record<string, unknown>): Project {
+    const category = String(project.category || '');
+    const type: Project['type'] = category === '专项游学'
+      ? 'study-tours'
+      : category === '展览策划' || category === '平面策划'
+        ? 'exhibition-planning'
+        : 'space-design';
+    const coverImage = typeof project.cover_image === 'string' ? project.cover_image : '';
+
+    return {
+      id: String(project.id ?? ''),
+      title: String(project.title ?? ''),
+      slug: String(project.slug ?? project.id ?? ''),
+      architect: String(project.architect ?? ''),
+      location: String(project.location ?? ''),
+      category,
+      type,
+      project_year: Number(project.project_year ?? project.year ?? 0),
+      status: 'published',
+      description: typeof project.description === 'string' ? project.description : '',
+      details: String(project.details ?? project.rich_content ?? ''),
+      images: coverImage ? [{
+        original_url: coverImage,
+        thumbnail_url: coverImage,
+        alt: String(project.title ?? ''),
+        width: 0,
+        height: 0,
+      }] : [],
+      created_at: String(project.created_at ?? ''),
+      updated_at: String(project.updated_at ?? ''),
+    };
   }
 
   // 搜索项目
