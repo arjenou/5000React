@@ -1,10 +1,24 @@
 .category-nav {
   background: #ffffff;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 15px 0;
+  position: relative;
+  z-index: 10;
+  min-height: 60px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.category-nav .container {
+.category-nav.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  max-height: 0;
+  padding: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
@@ -12,58 +26,76 @@
 
 .category-nav-content {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 40px;
+  align-items: center;
 }
 
-.category-nav-link {
-  position: relative;
-  padding: 6px 12px;
-  color: #333333;
+.category-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.category-btn {
+  background: none;
+  border: none;
   font-size: 16px;
   font-weight: 500;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
   text-decoration: none;
-  white-space: nowrap;
-  transition: color 160ms ease;
+  display: inline-block;
 }
 
-.category-nav-link:hover {
+.category-btn:hover {
   color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
+.category-separator {
+  color: #dee2e6;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .category-nav {
-    padding: 10px 0;
+    padding: 12px 0;
   }
-
-  .category-nav .container {
+  
+  .container {
     padding: 0 16px;
   }
-
-  .category-nav-content {
-    flex-direction: column;
+  
+  .category-buttons {
     gap: 15px;
   }
-
-  .category-nav-link {
-    width: 100%;
-    padding: 10px 20px;
-    text-align: center;
-    border-bottom: 1px solid #f0f0f0;
+  
+  .category-btn {
+    font-size: 14px;
+    padding: 6px 12px;
   }
-
-  .category-nav-link:last-child {
-    border-bottom: none;
+  
+  .category-separator {
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .category-nav {
-    padding: 8px 0;
+  .category-buttons {
+    gap: 10px;
   }
-
-  .category-nav-content {
-    gap: 12px;
+  
+  .category-btn {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+  
+  .category-separator {
+    font-size: 14px;
   }
 }

@@ -12,8 +12,6 @@ const Header: React.FC = () => {
     // 在SpaceDesign、StudyTours和ProjectDetail页面始终显示scrolled状态
     if (location.pathname === '/space-design' || 
         location.pathname === '/study-tours' || 
-        location.pathname === '/exhibition-planning' ||
-        location.pathname === '/contact' ||
         location.pathname.startsWith('/project/')) {
       setIsScrolled(true);
       return;
@@ -63,7 +61,8 @@ const Header: React.FC = () => {
           {/* Default Layout - Centered Logo (始终渲染，通过CSS控制显示) */}
           <div className="logo-section-centered">
             <Link to="/" className="yukkuri-logo" onClick={handleLogoClick}>
-              <img src="/logo.png" alt="YUKKURI" className="yukkuri-logo-image" />
+              <div className="yukkuri-text-en">YUKKURI</div>
+              <div className="yukkuri-text-jp">ユックリ</div>
             </Link>
           </div>
 
@@ -72,7 +71,8 @@ const Header: React.FC = () => {
             {/* Logo on left */}
             <div className="logo-section-left">
               <Link to="/" className="yukkuri-logo-small" onClick={handleLogoClick}>
-                <img src="/logo.png" alt="YUKKURI" className="yukkuri-logo-image-small" />
+                <div className="yukkuri-text-en-small">YUKKURI</div>
+                <div className="yukkuri-text-jp-small">ユックリ</div>
               </Link>
             </div>
 
