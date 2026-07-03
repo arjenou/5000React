@@ -9,8 +9,8 @@ if (!sourceDirectory || !outputDirectory || !qrSource) {
 
 const sourceScriptName = 'index-DHKmZtn5.js';
 const sourceStyleName = 'index-XWe7HBlg.css';
-const outputScriptName = 'index-contact-page-v1.js';
-const outputStyleName = 'index-contact-page-v1.css';
+const outputScriptName = 'index-contact-page-v2.js';
+const outputStyleName = 'index-contact-page-v2.css';
 
 const sourceScriptPath = join(sourceDirectory, 'assets', sourceScriptName);
 const sourceStylePath = join(sourceDirectory, 'assets', sourceStyleName);
@@ -26,6 +26,15 @@ if (!script.includes(contactButton)) {
 }
 
 script = script.replace(contactButton, contactLink);
+
+const categoryNavigationEnd = 'd.jsx(Ht,{to:"/category/exhibition",className:"category-nav-link",children:"平面策划"})]})';
+const categoryNavigationWithContact = 'd.jsx(Ht,{to:"/category/exhibition",className:"category-nav-link",children:"平面策划"}),d.jsx(Ht,{to:"/contact",className:"category-nav-link mobile-contact-nav-link",children:"联系我们"})]})';
+
+if (!script.includes(categoryNavigationEnd)) {
+  throw new Error('Mobile category navigation insertion point was not found.');
+}
+
+script = script.replace(categoryNavigationEnd, categoryNavigationWithContact);
 
 const projectRoute = 'd.jsx(ti,{path:"/project/:id",element:d.jsx(wy,{})})]})';
 const contactRoute = 'd.jsx(ti,{path:"/project/:id",element:d.jsx(wy,{})}),d.jsx(ti,{path:"/contact",element:d.jsx("main",{className:"contact-page",children:d.jsxs("section",{className:"contact-card",children:[d.jsx("h1",{children:"联系我们"}),d.jsxs("p",{className:"contact-recruitment",children:["本公司常年招聘优秀人才，有意者联系：",d.jsx("a",{href:"mailto:zhangxinfu@yukkuri.com.cn",children:"zhangxinfu@yukkuri.com.cn"})]}),d.jsxs("figure",{className:"contact-qr",children:[d.jsx("img",{src:"/contact-wechat-qr.png",alt:"联系微信二维码",width:333,height:323}),d.jsx("figcaption",{children:"微信扫码联系"})]})]})})})]})';
@@ -48,7 +57,8 @@ const contactStyles = `
 .contact-qr{width:min(100%,333px);margin:36px auto 0}
 .contact-qr img{display:block;width:100%;height:auto}
 .contact-qr figcaption{margin-top:12px;color:#777;font-size:14px}
-@media(max-width:768px){.contact-page{padding:40px 16px}.contact-card{padding:32px 20px}.contact-card h1{font-size:28px}.contact-recruitment{font-size:16px}}
+.mobile-contact-nav-link{display:none}
+@media(max-width:768px){.mobile-contact-nav-link{display:block}.contact-page{padding:40px 16px}.contact-card{padding:32px 20px}.contact-card h1{font-size:28px}.contact-recruitment{font-size:16px}}
 `;
 
 await writeFile(outputStylePath, `${originalStyles}${contactStyles}`);
