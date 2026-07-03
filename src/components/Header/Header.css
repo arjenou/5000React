@@ -653,19 +653,6 @@
   color: #007bff;
 }
 
-.nav-menu .category-nav-link {
-  display: inline-flex;
-  align-items: center;
-  visibility: visible;
-  opacity: 1;
-  color: #333 !important;
-  white-space: nowrap;
-}
-
-.nav-menu .category-nav-link:hover {
-  color: #007bff !important;
-}
-
 .contact-btn-nav {
   display: inline-flex;
   align-items: center;
@@ -678,6 +665,77 @@
   line-height: 1;
   white-space: nowrap;
   transition: background-color 160ms ease;
+}
+
+/* Restore the original production header geometry and image logo. */
+.main-header,
+.header.scrolled .main-header {
+  padding: 0;
+}
+
+.header-container {
+  height: 120px;
+}
+
+.header.scrolled .header-container {
+  height: 60px;
+}
+
+.yukkuri-logo-image {
+  width: auto;
+  height: 120px;
+  object-fit: contain;
+}
+
+.yukkuri-logo-image-small {
+  width: auto;
+  height: 50px;
+  object-fit: contain;
+}
+
+.scrolled-nav {
+  top: 50%;
+  transform: translateY(-50%) translateY(20px);
+}
+
+.header.scrolled .scrolled-nav {
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    height: 100px;
+  }
+
+  .header.scrolled .header-container {
+    height: 55px;
+  }
+
+  .yukkuri-logo-image {
+    height: 90px;
+  }
+
+  .yukkuri-logo-image-small {
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    height: 90px;
+  }
+
+  .header.scrolled .header-container {
+    height: 50px;
+  }
+
+  .yukkuri-logo-image {
+    height: 80px;
+  }
+
+  .yukkuri-logo-image-small {
+    height: 35px;
+  }
 }
 
 .contact-btn-nav:hover {

@@ -63,8 +63,7 @@ const Header: React.FC = () => {
           {/* Default Layout - Centered Logo (始终渲染，通过CSS控制显示) */}
           <div className="logo-section-centered">
             <Link to="/" className="yukkuri-logo" onClick={handleLogoClick}>
-              <div className="yukkuri-text-en">YUKKURI</div>
-              <div className="yukkuri-text-jp">ユックリ</div>
+              <img src="/logo.png" alt="YUKKURI" className="yukkuri-logo-image" />
             </Link>
           </div>
 
@@ -73,16 +72,15 @@ const Header: React.FC = () => {
             {/* Logo on left */}
             <div className="logo-section-left">
               <Link to="/" className="yukkuri-logo-small" onClick={handleLogoClick}>
-                <div className="yukkuri-text-en-small">YUKKURI</div>
-                <div className="yukkuri-text-jp-small">ユックリ</div>
+                <img src="/logo.png" alt="YUKKURI" className="yukkuri-logo-image-small" />
               </Link>
             </div>
 
             {/* Navigation Menu */}
             <nav className="nav-menu">
-              <Link to="/space-design" className="nav-link category-nav-link">空间设计</Link>
-              <Link to="/study-tours" className="nav-link category-nav-link">专项游学</Link>
-              <Link to="/exhibition-planning" className="nav-link category-nav-link">展览策划</Link>
+              <Link to="/space-design" className="nav-link">空间设计</Link>
+              <Link to="/study-tours" className="nav-link">专项游学</Link>
+              <Link to="/exhibition-planning" className="nav-link">展览策划</Link>
               <Link to="/contact" className="nav-link contact-btn-nav">联系我们</Link>
             </nav>
           </div>
@@ -105,7 +103,6 @@ const Header: React.FC = () => {
             <Link to="/space-design" className="mobile-nav-link">空间设计</Link>
             <Link to="/study-tours" className="mobile-nav-link">专项游学</Link>
             <Link to="/exhibition-planning" className="mobile-nav-link">展览策划</Link>
-            <Link to="/contact" className="mobile-nav-link" onClick={toggleMenu}>联系我们</Link>
           </nav>
         </div>
       )}
